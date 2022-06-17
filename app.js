@@ -1,14 +1,38 @@
 const http = require("http");
+const fs = require("fs");
 const port = 3000;
 const app = http.createServer((req, res) => {
   res.writeHead(200, { "Content-Type": "text/html" });
   const endpoint = req.url;
-  console.log(endpoint);
   switch (endpoint) {
-    case "home":
-      fs.readFile("pages/index.html");
+    case "/":
+    case "/home":
+      {
+        fs.readFile("pages/index.html", (err, data) => {
+          err
+            ? res.write("We having troubles loading the file")
+            : res.write(data);
+        });
+      }
+      break;
+    case "/about":
+      fs.readFile("pages/about.html", (err, data) => {
+        err
+          ? res.write("We having troubles loading the file")
+          : res.write(data);
+      });
+      break;
+    case "/contact":
+      fs.readFile("pages/contact.html", (err, data) => {
+        err
+          ? res.write("We having troubles loading the file")
+          : res.write(data);
+      });break;
+    default: {
+      res.writeHead(404, { "Content-Type": "text/html" });
+      res.write("Oopps it seems you've hit an incorrect endpoint");
+    }
   }
-  res.write(endpoint);
 });
 
 app.listen(port, (err) => {
