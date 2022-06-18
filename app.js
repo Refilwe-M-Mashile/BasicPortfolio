@@ -27,7 +27,8 @@ const app = http.createServer((req, res) => {
         err
           ? res.write("We having troubles loading the file")
           : res.write(data);
-      });break;
+      });
+      break;
     default: {
       res.writeHead(404, { "Content-Type": "text/html" });
       res.write("Oopps it seems you've hit an incorrect endpoint");
@@ -38,5 +39,5 @@ const app = http.createServer((req, res) => {
 app.listen(port, (err) => {
   err
     ? console.error("OOPS!!! Something Went Wrong")
-    : console.log("Connected to Port:", port);
+    : console.log(`Server Running On: http://localhost:${port}`);
 });
