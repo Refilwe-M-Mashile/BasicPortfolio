@@ -6,13 +6,17 @@ const app = http.createServer((req, res) => {
   const endpoint = req.url;
   switch (endpoint) {
     case "/":
-    case "/home":
       {
         fs.readFile("pages/index.html", (err, data) => {
           err
             ? res.write("We having troubles loading the file")
             : res.write(data);
         });
+      }
+      break;
+    case "/home":
+      {
+        res.writeHead(301, { Location: "http://" + req.headers["host"] + "/" });
       }
       break;
     case "/about":
